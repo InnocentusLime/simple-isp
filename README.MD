@@ -13,11 +13,13 @@ ISP features:
 - [ ] The ISP has two types of clients: Companies (static IPs) and Users (dyanmic IPs + NAT)
 
 Basic details about the network:
+* All the networks ever are supposed to be in the `10.0.0.0/8` segment
 * The segment used for all the clients is `10.206.0.0/16`
+* User network is `172.172.0.0/16`
 * The BGP network is assumed to have prefix `10.10.10.0/24`
 * ISP's BGP IP is `10.10.10.206`
 * ISP's ASN is `65206`
-* ISP's private network prefix is `10.20.0.0/16`
+* ISP's private network prefix is `192.168.168.0/24`
 
 ## A little file tour
 

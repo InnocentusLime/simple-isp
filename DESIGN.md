@@ -10,13 +10,13 @@ The IP addresses are allocated in the ISP net as follows:
 * genserver:
     - 10.206.0.1 in the client segment
     - 10.10.10.206 in the BGP network
-    - 10.20.0.1 in the internal network
+    - 192.168.168.1 in the internal network
 * DB:
-    - 10.20.0.2 in the internal network
+    - 192.168.168.2 in the internal network
 * DNS:
     - 10.206.206.206 in the client segment
 * Website:
-    - 10.20.0.3 in the inernal network
+    - 192.168.168.3 in the inernal network
     - 10.206.0.2 in the client network
 
 ## Terminology
@@ -32,5 +32,36 @@ For more convinient scripting, the interfaces are renamed as follows:
 | DB | eth0 | gen |
 | DB | eth1 | sitecom |
 | Website | eth1 | dbcom |
-| genserver | eth3 | usrcom |
+| genserver | eth3 | private |
 | genserver | eth2 | bgpcom |
+
+Segment names:
+* `10.0.0.0/8` -- global segment
+* `10.206.0.0/16` -- client segment
+* `192.168.168.0/24` -- internal segment
+* `172.172.0.0/16` -- private segment
+* `10.10.10.0/24` -- BGP segment
+
+## Filtering Rules
+
+Rules for general server (in increase of priority):
+* misc:
+    1. All routes are banned
+* global interface:
+    2. Source IPs from `global` can only be from client segment
+    3. Destination IPs from `global` can only be from global segment
+    4. Destination IPs from `global` can't be from BGP segment
+    5. TCP/UDP ports 0-1024 can't be source or destination ports
+* private interface:
+    6. Source IPs from `private` can only be from the private segment
+    7. Destination IPs from `private` can only be from the global segment
+    8. Destination IPs from `private` cannot be from the BGP segment
+    9. TCP/UDP ports 0-1024 can't be source or destination ports
+* DBcom interfaces:
+    8. Source and destination IPs to `dbcom` can only be from the internal segment
+    9. Source and destination IP to `dbcom` can only be the DB ip
+    10. The only allowed protocol on `dbcom` is TCP. The only allowed TCP destination
+    port is the one used for DB connections and ICMP.
+* bgpcom interfaces:
+    11. Source and destination IPs from `bgpcom` can only be from the Global and BGP segment
+    12. Source IPs from `bgpcom` can not belong to client segment
