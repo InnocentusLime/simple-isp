@@ -47,21 +47,23 @@ Segment names:
 Rules for general server (in increase of priority):
 * misc:
     1. All routes are banned
+    2. Only echo request, echo response and "destination unreacheable" ICMP messages are allowed
+    3. TCP/UDP ports 0-1024 are banned from being both source and destination
 * global interface:
-    2. Source IPs from `global` can only be from client segment
-    3. Destination IPs from `global` can only be from global segment
-    4. Destination IPs from `global` can't be from BGP segment
-    5. TCP/UDP ports 0-1024 can't be source or destination ports
+    3. Source IPs can only be from client segment
+    4. Destination IPs can only be from global segment
+    5. Destination IPs can't be from BGP segment
 * private interface:
-    6. Source IPs from `private` can only be from the private segment
-    7. Destination IPs from `private` can only be from the global segment
-    8. Destination IPs from `private` cannot be from the BGP segment
-    9. TCP/UDP ports 0-1024 can't be source or destination ports
+    7. Source IPs can only be from the private segment
+    8. Destination IPs can only be from the global segment
+    9. Destination IPs cannot be from the BGP segment
 * DBcom interfaces:
-    8. Source and destination IPs to `dbcom` can only be from the internal segment
-    9. Source and destination IP to `dbcom` can only be the DB ip
-    10. The only allowed protocol on `dbcom` is TCP. The only allowed TCP destination
-    port is the one used for DB connections and ICMP.
+    12. Source and destination IPs can only be from the internal segment
+    13. Source and destination IP can only be the DB ip
+    14. The only allowed protocol is TCP. The only allowed TCP destination
+    port is the one used for DB connections.
 * bgpcom interfaces:
-    11. Source and destination IPs from `bgpcom` can only be from the Global and BGP segment
-    12. Source IPs from `bgpcom` can not belong to client segment
+    15. Source and destination IPs can only be from the Global and BGP segment
+    16. Source IPs can not belong to client segment
+    17. Source and destination ports can be 179, but for that both source and IP addressed must
+    be from BGP segment
