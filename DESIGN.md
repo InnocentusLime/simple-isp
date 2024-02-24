@@ -26,19 +26,11 @@ For more convinient scripting, the interfaces are renamed as follows:
 | Node | Default Name | New Name |
 | --- | --- | --- |
 | genserver | eth0 | dbcom |
-| --- | --- | --- |
 | genserver | eth1 | global |
-| --- | --- | --- |
 | genserver | eth2 | usrcom |
-| --- | --- | --- |
 | genserver | eth3 | bgpcom |
-| --- | --- | --- |
 | DB | eth0 | gen |
-| --- | --- | --- |
 | DB | eth1 | sitecom |
-| --- | --- | --- |
 | Website | eth0 | global |
-| --- | --- | --- |
 | Website | eth1 | dbcom |
-| --- | --- | --- |
 | DNS | eth0 | global |
